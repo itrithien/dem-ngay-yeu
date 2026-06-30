@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huyền Duy Và Trí Thện</title>
+    <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: #f4f7fc; /* Nền xám trắng nhạt để làm nổi bật khối nội dung màu trắng tinh */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 15px;
+        }
+
+        /* --- 1. THANH CHUYỂN HƯỚNG (NAVBAR) --- */
+        .navbar {
+            width: 100%;
+            max-width: 480px;
+            background-color: #ffffff; /* Màu trắng nguyên bản */
+            border: 1px solid #e2e8f0;
+            padding: 12px 20px;
+            border-radius: 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            margin-bottom: 20px;
+        }
+
+        .nav-logo {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: #1e67df;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-links {
+            display: flex;
+            background-color: #f8fafc;
+            padding: 4px;
+            border-radius: 100px;
+            gap: 4px;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #64748b;
+            padding: 6px 14px;
+            border-radius: 100px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item.active, .nav-item:hover {
+            background-color: #1e67df;
+            color: #ffffff;
+        }
+
+        /* --- 2. KHUNG CHÍNH (MAIN CONTAINER) --- */
+        .main-card {
+            width: 100%;
+            max-width: 480px;
+            background-color: #ffffff; /* Màu trắng nguyên bản không kính mờ */
+            border: 1px solid #e2e8f0;
+            border-radius: 24px;
+            padding: 35px 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+            text-align: center;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 4px;
+
+             background: linear-gradient(
+                to right, 
+                #ff4757, #ffa502, #2ed573, #1e90ff, #9b5de5, #ff4757
+            );
+            background-size: 200% auto;
+            
+            /* Cắt dải màu lồng vào trong chữ */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            
+            /* Tạo chuyển động lướt màu nhẹ nhàng */
+            animation: rainbowFlow 4s linear infinite;
+        }
+
+        /* Định nghĩa chuyển động dịch chuyển nền màu */
+        @keyframes rainbowFlow {
+            0% {
+                background-position: 0% center;
+            }
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        .card-subtitle {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 30px;
+        }
+
+        /* Khu vực Avatar Cặp đôi */
+        .couple-zone {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 35%;
+        }
+
+        .avatar-box {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            padding: 3px;
+            background: linear-gradient(135deg, #60a5fa, #2563eb);
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ffffff;
+        }
+
+        .profile-name {
+            margin-top: 10px;
+            font-weight: 700;
+            color: #1e293b;
+            font-size: 0.95rem;
+        }
+
+        .role-tag {
+            background-color: #f1f5f9;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 6px;
+            border: 1px solid #e2e8f0;
+        }
+        .boy .role-tag { color: #2563eb; background-color: #eff6ff; }
+        .girl .role-tag { color: #db2777; background-color: #fdf2f8; }
+
+        .big-heart {
+            font-size: 2.2rem;
+            animation: heartbeat 1.2s infinite ease-in-out;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.12); }
+        }
+
+        /* --- KHU VỰC SỐ NGÀY & THÁNG --- */
+        .count-display {
+            margin-bottom: 30px;
+        }
+
+        .total-days {
+            font-size: 4.5rem;
+            font-weight: 900;
+            color: #2563eb; /* Tone xanh dương đậm nét */
+            line-height: 1;
+        }
+
+        .days-text {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #475569;
+            margin-top: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Dòng tính số tháng yêu nhau phía dưới ngày */
+        .month-convert {
+            display: inline-block;
+            margin-top: 10px;
+            background-color: #eff6ff;
+            color: #2563eb;
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid #bfdbfe;
+        }
+
+        .start-date-tag {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-top: 15px;
+        }
+
+        /* --- 3. DANH SÁCH KỶ NIỆM (MEMORIES SECTION) --- */
+        .memories-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .memory-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 15px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .m-icon {
+            width: 36px;
+            height: 36px;
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .m-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #334155;
+        }
+
+        .m-date {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin: 2px 0 6px 0;
+        }
+
+        .m-passed {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #2563eb;
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            padding: 2px 8px;
+            border-radius: 100px;
+        }
+
+        /* Responsive mượt mà trên di động màn hình nhỏ */
+        @media (max-width: 390px) {
+            .avatar-box { width: 75px; height: 75px; }
+            .total-days { font-size: 3.8rem; }
+            .memories-grid { grid-template-columns: 1fr; } /* Chuyển thành 1 cột trên màn hình quá nhỏ */
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-logo">💙 LoveDays</div>
+        <div class="nav-links">
+            <a href="#" class="nav-item active">Trang chủ</a>
+            <a href="#" class="nav-item">Kỷ niệm</a>
+            <a href="#" class="nav-item">Album</a>
+        </div>
+    </nav>
+
+    <div class="main-card">
+        <h2 class="card-title">Đếm ngày yêu nhau</h2>
+        <p class="card-subtitle">Cùng nhau tạo nên những kỷ niệm đẹp 💙</p>
+
+        <div class="couple-zone">
+            <div class="profile boy">
+                <div class="avatar-box">
+                    <img class="avatar" src="/z6512308855832_950c520268a9c129693f5d42e5be3d6b.jpg" alt="Nam">
+                </div>
+                <div class="profile-name">Trí Thiện</div>
+                <div class="role-tag">💙 Anh</div>
+            </div>
+
+            <div class="big-heart">❤️</div>
+
+            <div class="profile girl">
+                <div class="avatar-box">
+                    <img class="avatar" src="/z7851569717728_cba71c70db14780cd0cfdb441922fdf5.jpg" alt="Nữ">
+                </div>
+                <div class="profile-name">Huyền Duy</div>
+                <div class="role-tag">💖 Em</div>
+            </div>
+        </div>
+
+        <div class="count-display">
+            <div class="total-days" id="total-days-el">0</div>
+            <div class="days-text">Ngày yêu nhau</div>
+            
+            <div class="month-convert" id="month-convert-el">Đang tính toán...</div>
+            
+            <div class="start-date-tag">
+                📅 Từ ngày 30 tháng 12, 2025
+            </div>
+        </div>
+
+        <div class="memories-grid">
+            <div class="memory-card">
+                <div class="m-icon">💙</div>
+                <div class="m-title">Ngày gặp nhau</div>
+                <div class="m-date">20/12/2025</div>
+                <div class="m-passed" id="m1-days">--</div>
+            </div>
+            <div class="memory-card">
+                <div class="m-icon">💌</div>
+                <div class="m-title">Ngày tỏ tình</div>
+                <div class="m-date">30/12/2025</div>
+                <div class="m-passed" id="m2-days">--</div>
+            </div>
+            <div class="memory-card">
+                <div class="m-icon">💍</div>
+                <div class="m-title">Ngày yêu nhau</div>
+                <div class="m-date">30/12/2025</div>
+                <div class="m-passed" id="m3-days">--</div>
+            </div>
+            <div class="memory-card">
+                <div class="m-icon">🎁</div>
+                <div class="m-title">Kỷ niệm 1 năm</div>
+                <div class="m-date">30/12/2026</div>
+                <div class="m-passed" id="m4-days">--</div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const loveStartDate = new Date(2025, 11, 30); // Ngày 30/12/2025 (Tháng trong JS chạy từ 0-11)
+
+        function calculateLoveTime() {
+            const today = new Date();
+            
+            // 1. Tính tổng số ngày trọn vẹn
+            const diffTime = today - loveStartDate;
+            const totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            document.getElementById('total-days-el').innerText = totalDays >= 0 ? totalDays : 0;
+
+            // 2. Tính số tháng và số ngày lẻ chính xác
+            let months = (today.getFullYear() - loveStartDate.getFullYear()) * 12;
+            months += today.getMonth() - loveStartDate.getMonth();
+            
+            let tempStartDate = new Date(loveStartDate);
+            tempStartDate.setMonth(tempStartDate.getMonth() + months);
+            
+            // Nếu ngày hiện tại chưa chạm tới ngày mốc của tháng hiện tại, lùi đi 1 tháng
+            if (today < tempStartDate) {
+                months--;
+                tempStartDate = new Date(loveStartDate);
+                tempStartDate.setMonth(tempStartDate.getMonth() + months);
+            }
+            
+            const remainingDays = Math.floor((today - tempStartDate) / (1000 * 60 * 60 * 24));
+            
+            if (totalDays >= 0) {
+                document.getElementById('month-convert-el').innerText = `Bên nhau: ${months} tháng ${remainingDays} ngày`;
+            } else {
+                document.getElementById('month-convert-el').innerText = `Chưa đến mốc ngày yêu`;
+            }
+
+            // 3. Tính số ngày đã qua hoặc sắp tới cho các ô kỉ niệm
+            const milestones = {
+                'm1-days': new Date(2025, 11, 20), // 15/12/2025
+                'm2-days': new Date(2025, 11, 30), // 30/12/2025
+                'm3-days': new Date(2025, 11, 30), // 30/12/2025
+                'm4-days': new Date(2026, 11, 30)  // 30/12/2026
+            };
+
+            for (const [id, targetDate] of Object.entries(milestones)) {
+                const diff = today - targetDate;
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const el = document.getElementById(id);
+                if (days >= 0) {
+                    el.innerText = `${days} ngày trước`;
+                } else {
+                    el.innerText = `${Math.abs(days)} ngày nữa`;
+                }
+            }
+        }
+
+        // Khởi chạy ngay lập tức khi mở trình duyệt
+        calculateLoveTime();
+    </script>
+</body>
+</html>
