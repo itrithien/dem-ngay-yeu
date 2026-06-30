@@ -433,7 +433,7 @@
 <body>
 
     <nav class="navbar">
-        <div class="nav-logo">🗺️ LoveDays</div>
+        <div class="nav-logo">🗺️ Tấm Vé</div>
         <div class="nav-links">
             <a href="#" class="nav-item active">Hành trình</a>
             <a href="#" class="nav-item">Kỷ niệm</a>
@@ -444,6 +444,11 @@
     <div class="main-card">
         <h2 class="card-title">Love Journey Passport</h2>
         <p class="card-subtitle">Hành trình vạn dặm khởi hành từ tim 💙</p>
+        <div class="music-player" id="music-player-btn" onclick="toggleMusic()">
+    
+    <!-- Khung ẩn hoàn toàn để chứa video YouTube chạy ngầm -->
+    <div id="youtube-audioplayer" style="position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none;"></div>
+</div>
 
         <div class="couple-zone">
             <video autoplay muted loop playsinline class="couple-video">
@@ -615,6 +620,73 @@
                 particle.remove();
             }, 800);
         });
+
+        /* --- TRÌNH PHÁT NHẠC NỀN YOUTUBE ẨN --- */
+       // --- XỬ LÝ NHÚNG NHẠC TỪ YOUTUBE & TỰ ĐỘNG PHÁT KHI TƯƠNG TÁC ---
+// 1. Tải thư viện YouTube Player API tự động
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+var ytPlayer;
+// Thay mã ID video YouTube của hai bạn vào đây
+const youtubeVideoId = 'IOe0tNoUGv8'; 
+
+function onYouTubeIframeAPIReady() {
+    ytPlayer = new YT.Player('youtube-audioplayer', {
+        height: '0',
+        width: '0',
+        videoId: youtubeVideoId,
+        playerVars: {
+            'autoplay': 1,       // Bật lệnh autoplay từ phía YouTube
+            'loop': 1,
+            'playlist': youtubeVideoId,
+            'controls': 0,
+            'disablekb': 1
+        },
+        events: {
+            'onReady': onPlayerReady
+        }
+    });
+}
+
+// 2. Hàm xử lý khi Trình phát YouTube đã sẵn sàng
+function onPlayerReady(event) {
+    const btn = document.getElementById('music-player-btn');
+    
+    // MẸO: Lắng nghe lượt click/chạm đầu tiên của người dùng vào trang web để kích hoạt nhạc
+    const startAutoplay = () => {
+        // Nếu nhạc chưa phát, tiến hành phát nhạc
+        if (ytPlayer && typeof ytPlayer.getPlayerState === 'function' && ytPlayer.getPlayerState() !== 1) {
+            ytPlayer.playVideo();
+            btn.classList.add('playing');
+        }
+        // Sau khi đã phát được nhạc ở lần chạm đầu tiên, gỡ bỏ sự kiện này để không bị lặp lại khi click tiếp
+        document.removeEventListener('click', startAutoplay);
+        document.removeEventListener('touchstart', startAutoplay);
+    };
+
+    // Đăng ký sự kiện click chuột hoặc chạm màn hình điện thoại
+    document.addEventListener('click', startAutoplay);
+    document.addEventListener('touchstart', startAutoplay);
+}
+
+// 3. Hàm bấm nút 🎵 để chủ động Bật/Tắt theo ý muốn
+function toggleMusic() {
+    const btn = document.getElementById('music-player-btn');
+    if (!ytPlayer || typeof ytPlayer.getPlayerState !== 'function') return;
+
+    if (ytPlayer.getPlayerState() === 1) {
+        ytPlayer.pauseVideo();
+        btn.classList.remove('playing');
+    } else {
+        ytPlayer.playVideo();
+        btn.classList.add('playing');
+    }
+}
     </script>
+
+<!-- TRÌNH PHÁT NHẠC NỀN YOUTUBE ẨN -->
 </body>
 </html>
