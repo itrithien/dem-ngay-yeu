@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Huyền Duy Và Trí Thiện - Love Journey</title>
+    <title>Huyền Duy Và Trí Thiện</title>
     <style>
         /* Reset & Base Styles */
         * {
@@ -15,7 +15,7 @@
 
         body {
             min-height: 100vh;
-            background-color: #f0f4f9; /* Quay lại màu nền xanh xám nhạt dịu mát, giúp làm nổi bật khung Passport */
+            background-color: #f0f4f9; /* Màu nền xanh xám nhạt dịu mát, giúp làm nổi bật khung Passport */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -161,7 +161,7 @@
             z-index: 1;            /* Nằm dưới cùng trong khung couple-zone */
         }
 
-        /* Lớp phủ mờ nhẹ màu trắng giúp chữ và ảnh đại diện nổi bật, không bị màu sắc video làm rối */
+        /* Lớp phủ mờ nhẹ màu trắng giúp chữ và ảnh đại diện nổi bật */
         .couple-video-overlay {
             position: absolute;
             top: 0;
@@ -422,6 +422,111 @@
             letter-spacing: 0.3px;
         }
 
+        /* --- KHU VỰC MINI GAME TRẮC NGHIỆM TÌM HIỂU --- */
+        .quiz-box {
+            background-color: #ffffff;
+            border: 2px dashed #38bdf8;
+            border-radius: 20px;
+            padding: 20px 15px;
+            margin-top: 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .quiz-title {
+            font-size: 1.1rem;
+            color: #0284c7;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .quiz-progress {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-bottom: 15px;
+            font-weight: 600;
+            background: #f1f5f9;
+            padding: 3px 10px;
+            border-radius: 100px;
+            display: inline-block;
+        }
+
+        .quiz-question {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 20px;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .option-btn {
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            color: #334155;
+            padding: 12px 15px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s ease;
+        }
+
+        .option-btn:hover {
+            background-color: #f0f9ff;
+            border-color: #38bdf8;
+        }
+
+        /* Màu sắc khi chọn đúng / sai */
+        .option-btn.correct {
+            background-color: #22c55e !important;
+            border-color: #22c55e !important;
+            color: #ffffff !important;
+        }
+
+        .option-btn.wrong {
+            background-color: #ef4444 !important;
+            border-color: #ef4444 !important;
+            color: #ffffff !important;
+        }
+
+        .quiz-result-zone {
+            display: none;
+            padding: 10px 0;
+        }
+
+        .result-score {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0284c7;
+            margin: 10px 0;
+        }
+
+        /* Định dạng nút Thử thách lại */
+        .note-btn {
+            background-color: #0284c7;
+            border: none;
+            color: #ffffff;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .note-btn:hover {
+            background-color: #0369a1;
+        }
+
         /* Responsive */
         @media (max-width: 390px) {
             .avatar-box { width: 75px; height: 75px; }
@@ -444,11 +549,11 @@
     <div class="main-card">
         <h2 class="card-title">Love Journey Passport</h2>
         <p class="card-subtitle">Hành trình vạn dặm khởi hành từ tim 💙</p>
+        
         <div class="music-player" id="music-player-btn" onclick="toggleMusic()">
-    
-    <!-- Khung ẩn hoàn toàn để chứa video YouTube chạy ngầm -->
-    <div id="youtube-audioplayer" style="position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none;"></div>
-</div>
+            <!-- Khung ẩn hoàn toàn để chứa video YouTube chạy ngầm -->
+            <div id="youtube-audioplayer" style="position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none;"></div>
+        </div>
 
         <div class="couple-zone">
             <video autoplay muted loop playsinline class="couple-video">
@@ -458,7 +563,7 @@
 
             <div class="profile boy">
                 <div class="avatar-box">
-                    <img class="avatar" src="z6512308855832_950c520268a9c129693f5d42e5be3d6b.jpg" alt="Nam">
+                    <img class="avatar" src="z6512308855832_950c520268a9c129693f5d42e5be3d6b.jpg" alt="Trí Thiện">
                 </div>
                 <div class="profile-name">Trí Thiện</div>
                 <div class="role-tag">💙 IT. Anh</div>
@@ -468,7 +573,7 @@
 
             <div class="profile girl">
                 <div class="avatar-box">
-                    <img class="avatar" src="z7851569717728_cba71c70db14780cd0cfdb441922fdf5.jpg" alt="Nữ">
+                    <img class="avatar" src="z7851569717728_cba71c70db14780cd0cfdb441922fdf5.jpg" alt="Huyền Duy">
                 </div>
                 <div class="profile-name">Huyền Duy</div>
                 <div class="role-tag">💖 TourGuide. Em</div>
@@ -500,6 +605,23 @@
             </div>
         </div>
 
+        <div class="quiz-box">
+            <div class="quiz-title">🎮 Thử Thách Passport: Ai Hiểu Ai Hơn?</div>
+            
+            <div id="quiz-play-zone">
+                <div class="quiz-progress" id="quiz-progress-el">Câu hỏi: 1/10</div>
+                <div class="quiz-question" id="quiz-question-el">Đang tải câu hỏi...</div>
+                <div class="quiz-options" id="quiz-options-el"></div>
+            </div>
+
+            <div class="quiz-result-zone" id="quiz-result-zone-el">
+                <h3 style="color: #0f172a;">Kết Quả Chuyến Bay</h3>
+                <div class="result-score" id="result-score-el">0/10</div>
+                <p id="result-comment-el" style="font-size: 0.85rem; color: #475569; margin-bottom: 15px;"></p>
+                <button type="button" class="note-btn" style="width: 100%; padding: 12px;" onclick="restartQuiz()">Thử thách lại từ đầu 🔄</button>
+            </div>
+        </div>
+
         <div class="memories-grid">
             <div class="memory-card">
                 <div class="m-icon">🛫</div>
@@ -526,10 +648,10 @@
                 <div class="m-passed" id="m4-days">--</div>
             </div>
         </div>
-
     </div>
 
     <script>
+        // Cấu hình ngày bắt đầu yêu (Tháng trong JS chạy từ 0-11, nên tháng 12 là số 11)
         const loveStartDate = new Date(2025, 11, 30, 0, 0, 0); 
 
         function calculateLoveTime() {
@@ -599,7 +721,7 @@
         calculateLoveTime();
         setInterval(calculateLoveTime, 1000);
 
-        /* --- XỬ LÝ SỰ KIỆN CLICK POP BONG BÓNG --- */
+        /* --- XỬ LÝ SỰ KIỆN CLICK POP BONG BÓNG VUI NHỘN --- */
         document.addEventListener('click', (e) => {
             const emojis = ['❤️', '✈️', '✨', '☁️', '💙', '🗺️', '🎫'];
             const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
@@ -622,71 +744,195 @@
         });
 
         /* --- TRÌNH PHÁT NHẠC NỀN YOUTUBE ẨN --- */
-       // --- XỬ LÝ NHÚNG NHẠC TỪ YOUTUBE & TỰ ĐỘNG PHÁT KHI TƯƠNG TÁC ---
-// 1. Tải thư viện YouTube Player API tự động
-var tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
-var firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-var ytPlayer;
-// Thay mã ID video YouTube của hai bạn vào đây
-const youtubeVideoId = 'IOe0tNoUGv8'; 
+        var ytPlayer;
+        const youtubeVideoId = 'IOe0tNoUGv8'; // ID video bài hát kỉ niệm của hai bạn
 
-function onYouTubeIframeAPIReady() {
-    ytPlayer = new YT.Player('youtube-audioplayer', {
-        height: '0',
-        width: '0',
-        videoId: youtubeVideoId,
-        playerVars: {
-            'autoplay': 1,       // Bật lệnh autoplay từ phía YouTube
-            'loop': 1,
-            'playlist': youtubeVideoId,
-            'controls': 0,
-            'disablekb': 1
-        },
-        events: {
-            'onReady': onPlayerReady
+        function onYouTubeIframeAPIReady() {
+            ytPlayer = new YT.Player('youtube-audioplayer', {
+                height: '0',
+                width: '0',
+                videoId: youtubeVideoId,
+                playerVars: {
+                    'autoplay': 1,
+                    'loop': 1,
+                    'playlist': youtubeVideoId,
+                    'controls': 0,
+                    'disablekb': 1
+                },
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
         }
-    });
-}
 
-// 2. Hàm xử lý khi Trình phát YouTube đã sẵn sàng
-function onPlayerReady(event) {
-    const btn = document.getElementById('music-player-btn');
-    
-    // MẸO: Lắng nghe lượt click/chạm đầu tiên của người dùng vào trang web để kích hoạt nhạc
-    const startAutoplay = () => {
-        // Nếu nhạc chưa phát, tiến hành phát nhạc
-        if (ytPlayer && typeof ytPlayer.getPlayerState === 'function' && ytPlayer.getPlayerState() !== 1) {
-            ytPlayer.playVideo();
-            btn.classList.add('playing');
+        function onPlayerReady(event) {
+            const btn = document.getElementById('music-player-btn');
+            
+            const startAutoplay = () => {
+                if (ytPlayer && typeof ytPlayer.getPlayerState === 'function' && ytPlayer.getPlayerState() !== 1) {
+                    ytPlayer.playVideo();
+                    if(btn) btn.classList.add('playing');
+                }
+                document.removeEventListener('click', startAutoplay);
+                document.removeEventListener('touchstart', startAutoplay);
+            };
+
+            document.addEventListener('click', startAutoplay);
+            document.addEventListener('touchstart', startAutoplay);
         }
-        // Sau khi đã phát được nhạc ở lần chạm đầu tiên, gỡ bỏ sự kiện này để không bị lặp lại khi click tiếp
-        document.removeEventListener('click', startAutoplay);
-        document.removeEventListener('touchstart', startAutoplay);
-    };
 
-    // Đăng ký sự kiện click chuột hoặc chạm màn hình điện thoại
-    document.addEventListener('click', startAutoplay);
-    document.addEventListener('touchstart', startAutoplay);
-}
+        function toggleMusic() {
+            const btn = document.getElementById('music-player-btn');
+            if (!ytPlayer || typeof ytPlayer.getPlayerState !== 'function') return;
 
-// 3. Hàm bấm nút 🎵 để chủ động Bật/Tắt theo ý muốn
-function toggleMusic() {
-    const btn = document.getElementById('music-player-btn');
-    if (!ytPlayer || typeof ytPlayer.getPlayerState !== 'function') return;
+            if (ytPlayer.getPlayerState() === 1) {
+                ytPlayer.pauseVideo();
+                if(btn) btn.classList.remove('playing');
+            } else {
+                ytPlayer.playVideo();
+                if(btn) btn.classList.add('playing');
+            }
+        }
 
-    if (ytPlayer.getPlayerState() === 1) {
-        ytPlayer.pauseVideo();
-        btn.classList.remove('playing');
-    } else {
-        ytPlayer.playVideo();
-        btn.classList.add('playing');
-    }
-}
+        /* --- XỬ LÝ LOGIC GAME TRẮC NGHIỆM KHẢO SÁT TÌNH YÊU --- */
+        const quizData = [
+            {
+                question: "1. Vì sao mình lại bắt đầu nói chuyện lại với nhau? 🤔",
+                options: ["Do anh rep str của em", "Do anh cmt vào tiktok của em", "Do anh gửi mail cho em", "Một lý do khác!!!!(phải kể ra dc lý do)"],
+                correct: 3
+            },
+            {
+                question: "2. Khi gặp lại em đã mua cho anh món gì đầu tiên?",
+                options: ["Một ly trà vải", "Một bánh tráng trộn", "Một cây lạp xưởng", "Một cái bánh bao"],
+                correct: 0
+            },
+            {
+                question: "3. Lần đầu tiên gặp lại bộ đồ anh mặc trên người là gì?",
+                options: ["Bộ đồ bình thường", "Quần tây áo thun", "Quần tây áo thun khoác thêm sơ mi ở ngoài", "Một đáp án khác"],
+                correct: 3
+            },
+            {
+                question: "4. Đâu là thói quen đáng yêu nhất của Trí Thiện khi hờn dỗi? 😤",
+                options: ["Im lặng đáng sợ", "Nói nhiều hơn bình thường", "Ăn thật nhiều cho bõ tức", "Mặt phụng phịu đòi ôm"],
+                correct: 0
+            },
+            {
+                question: "5. Cột mốc ngày kỷ niệm tình yêu chính thức của hai bạn là ngày nào? 🎫",
+                options: ["20/12/2025", "25/12/2025", "30/12/2025", "01/01/2026"],
+                correct: 2
+            },
+            {
+                question: "6. Điểm đến du lịch mơ ước tiếp theo mà cả hai đều muốn check-in là gì? ✈️",
+                options: ["Đà Lạt sương mù", "Phú Quốc biển xanh", "An giang huyền bí", "Bạc Liêu miền Tây sông nước"],
+                correct: 0
+            },
+            {
+                question: "7. Khi xảy ra tranh cãi nhỏ, ai thường là người xuống nước làm hòa trước? 🌊",
+                options: ["Tất nhiên là Trí Thiện rồi", "Huyền Duy dễ thương lắm", "Cứ im lặng tự hết", "Oẳn tù tì xem ai thua"],
+                correct: 0
+            },
+            {
+                question: "8. Bài hát chung nào mà hai bạn thích nghe nhất lúc này? 🎵",
+                options: ["Một bài nhạc Lofi nhẹ nhàng", "Nhạc Pop ngọt ngào", "Nhạc dance sôi động", "Bài hát đang nhúng trên web này!"],
+                correct: 3
+            },
+            {
+                question: "9. Chữ viết tắt hay biệt danh bí mật của anh trên mạng là gì? 🔒",
+                options: ["ITRITHIEN", "ITHIEN", "ITTRITHIEN", "Không có biệt danh đâu"],
+                correct: 0
+            },
+            {
+                question: "10. Mức độ yêu thương hiện tại dành cho đối phương là bao nhiêu? 💖",
+                options: ["100%", "1000%", "Vô cực không đếm xuể", "Đang cập nhật tăng lên mỗi ngày"],
+                correct: 3
+            }
+        ];
+
+        let currentQuiz = 0;
+        let score = 0;
+        let isAnswered = false; 
+
+        function loadQuiz() {
+            isAnswered = false;
+            const playZone = document.getElementById('quiz-play-zone');
+            const resultZone = document.getElementById('quiz-result-zone-el');
+            
+            playZone.style.display = "block";
+            resultZone.style.display = "none";
+
+            const currentQuizData = quizData[currentQuiz];
+            
+            document.getElementById('quiz-progress-el').innerText = `Câu hỏi: ${currentQuiz + 1}/${quizData.length}`;
+            document.getElementById('quiz-question-el').innerText = currentQuizData.question;
+            
+            const optionsContainer = document.getElementById('quiz-options-el');
+            optionsContainer.innerHTML = '';
+            
+            currentQuizData.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.innerText = option;
+                button.addEventListener('click', () => selectOption(button, index));
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function selectOption(selectedBtn, selectedIndex) {
+            if (isAnswered) return; 
+            isAnswered = true;
+
+            const currentQuizData = quizData[currentQuiz];
+            const allButtons = document.querySelectorAll('.option-btn');
+
+            if (selectedIndex === currentQuizData.correct) {
+                selectedBtn.classList.add('correct');
+                score++;
+            } else {
+                selectedBtn.classList.add('wrong');
+                allButtons[currentQuizData.correct].classList.add('correct');
+            }
+
+            setTimeout(() => {
+                currentQuiz++;
+                if (currentQuiz < quizData.length) {
+                    loadQuiz();
+                } else {
+                    showResults();
+                }
+            }, 1200);
+        }
+
+        function showResults() {
+            document.getElementById('quiz-play-zone').style.display = "none";
+            const resultZone = document.getElementById('quiz-result-zone-el');
+            resultZone.style.display = "block";
+            
+            document.getElementById('result-score-el').innerText = `${score}/${quizData.length}`;
+            
+            let comment = "";
+            if (score === quizData.length) {
+                comment = "🥰 hay lắm em yêu anh tự hào về em";
+            } else if (score >= 7) {
+                comment = "🥂 khá lắm anh tự hào về em";
+            } else {
+                comment = "🍿 rồi xu cà na quá dị dợ yêu";
+            }
+            document.getElementById('result-comment-el').innerText = comment;
+        }
+
+        function restartQuiz() {
+            currentQuiz = 0;
+            score = 0;
+            loadQuiz();
+        }
+
+        // Khởi chạy câu hỏi đầu tiên khi tải trang
+        loadQuiz();
     </script>
-
-<!-- TRÌNH PHÁT NHẠC NỀN YOUTUBE ẨN -->
 </body>
 </html>
